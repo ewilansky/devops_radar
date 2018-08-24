@@ -12,8 +12,8 @@ function RadarChart(id, data, options) {
 	 margin: {top: 20, right: 20, bottom: 20, left: 20}, //The margins of the SVG
 	 levels: 3,				//How many levels or inner circles should there be drawn
 	 maxValue: 0, 			//What is the value that the biggest circle will represent
-	 labelFactor: .92, 	//How much farther than the radius of the outer circle should the labels be placed
-	 wrapWidth: 60, 		//The number of pixels after which a label needs to be given a new line
+	 labelFactor: .92, 	    //How much farther than the radius of the outer circle should the labels be placed
+	 wrapWidth: 70, 		//The number of pixels after which a label needs to be given a new line
 	 opacityArea: 0.35, 	//The opacity of the area of the blob
 	 dotRadius: 4, 			//The size of the colored circles of each blog
 	 opacityCircles: 0.1, 	//The opacity of the circles of each blob
@@ -123,19 +123,26 @@ function RadarChart(id, data, options) {
 
 
 	
-		//Append the labels at each axis
+	//Append the labels at each axis
+	var xyOffset = 45;
 	axis.append("text")
 		.attr("class", "legend")
 		.style("font-size", "11px")
 		.attr("text-anchor", "middle")
 		.attr("dy", "0.35em")
-		.attr("x", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2); })
-		.attr("y", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2); })
+		.attr("x", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2) - (Math.sin(angleSlice*i - Math.PI/2) * xyOffset); })
+		.attr("y", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2) + (Math.cos(angleSlice*i - Math.PI/2) * xyOffset); })
+		.attr("transform", function(d, i) { 
+			var x = rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2) - (Math.sin(angleSlice*i - Math.PI/2) * xyOffset);
+			var y = rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2) + (Math.cos(angleSlice*i - Math.PI/2) * xyOffset);
 
-		// rotate each sector differently: 12 to 3, 3 to 9, etc...
-		.attr("transform", "translate(-20,20) rotate(20)")
-
-
+			var degOffset = 12;
+			var deg = i * (360 / total) + degOffset;
+			var final = "rotate(" + deg + ", " + x + ", " + y + ")";
+			
+			//console.log(final);
+			return final;
+		 })
 		.text(function(d){return d;})
 		.call(wrap, cfg.wrapWidth);
 
