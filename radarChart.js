@@ -154,7 +154,7 @@ function RadarChart(id, data, options) {
 		.attr("r", 300)
 		.attr("fill", "white");
 		 
-	mask.append("circle")
+	var outermask = mask.append("circle")
 		   // the radius of the hole
 		   .attr("r", 240)
 		   // next two positions the hollow portion of the circle  
@@ -170,6 +170,35 @@ function RadarChart(id, data, options) {
 		 .style("stroke-width", 2)
 		 .style("fill", "#0B76C5")
 		 .style("stroke", "#000000");
+
+	// 0 degrees
+	axisGrid.append("rect")
+		 .attr("x", "-15")
+		 .attr("y", "-308")
+		 .attr("width", "30")
+		 .attr("height", "75")
+		 .attr("rx", "10")
+		 .attr("ry", "10")
+		 .attr("fill", "#0B76C5")
+		 .attr("stroke", "black");
+	// 90 degrees
+	axisGrid.append("rect")
+		 .attr("x", "235")
+		 .attr("y", "-15")
+		 .attr("width", "75")
+		 .attr("height", "30")
+		 .attr("rx", "10")
+		 .attr("ry", "10")
+		 .attr("fill", "#0B76C5")
+		 .attr("stroke", "black");
+	
+	// 180 degrees
+
+	
+	// 240 degrees
+
+	
+
 
 	/////////////////////////////////////////////////////////
 	///////////// Draw the radar chart blobs ////////////////
