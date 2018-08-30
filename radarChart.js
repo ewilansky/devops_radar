@@ -193,10 +193,26 @@ function RadarChart(id, data, options) {
 		 .attr("stroke", "black");
 	
 	// 180 degrees
-
+	axisGrid.append("rect")
+		 .attr("x", "-15")
+		 .attr("y", "235")
+		 .attr("width", "30")
+		 .attr("height", "75")
+		 .attr("rx", "10")
+		 .attr("ry", "10")
+		 .attr("fill", "#0B76C5")
+		 .attr("stroke", "black");
 	
-	// 240 degrees
-
+	// 270 degrees
+	axisGrid.append("rect")
+		 .attr("x", "-308")
+		 .attr("y", "-15")
+		 .attr("width", "75")
+		 .attr("height", "30")
+		 .attr("rx", "10")
+		 .attr("ry", "10")
+		 .attr("fill", "#0B76C5")
+		 .attr("stroke", "black");	
 	
 
 
