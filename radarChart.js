@@ -1,20 +1,22 @@
-////////////////////////////////////////////////////////
-/////////////// The Radar Chart Function ////////////////
-/////////////// Written by Nadieh Bremer ////////////////
-////////////////// VisualCinnamon.com ///////////////////
-/////////// Inspired by the code of alangrafu ///////////
-/////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+/////////////// The Radar Chart Function /////////////////
+/////////////// Altered by Ethan & Tomek /////////////////
+///////////////////////// AHL ////////////////////////////
+/////////// Inspired by the code of Nadieh Bremer ////////
+/////////////////// VisualCinnamon.com ///////////////////
+//////////////////////and alangrafu //////////////////////
+//////////////////////////////////////////////////////////
 
 function RadarChart(id, data, options) {
 	var cfg = {
 		w: 600,				//Width of the circle
 		h: 600,				//Height of the circle
 		margin: { top: 20, right: 20, bottom: 20, left: 20 }, //The margins of the SVG
-		levels: 3,				//How many levels or inner circles should there be drawn
-		maxValue: 0, 			//What is the value that the biggest circle will represent
+		levels: 5,				//How many levels or inner circles should there be drawn
+		maxValue: 5, 			//What is the value that the biggest circle will represent
 		labelFactor: .92, 		//How much farther than the radius of the outer circle should the labels be placed
-		wrapWidth: 70, 		//The number of pixels after which a label needs to be given a new line
-		opacityArea: 0.35, 	//The opacity of the area of the blob
+		wrapWidth: 70, 			//The number of pixels after which a label needs to be given a new line
+		opacityArea: 0.35, 		//The opacity of the area of the blob
 		dotRadius: 4, 			//The size of the colored circles of each blob
 		opacityCircles: 0.1, 	//The opacity of the circles of each blob
 		strokeWidth: 2, 		//The width of the stroke around each blob
@@ -35,7 +37,7 @@ function RadarChart(id, data, options) {
 	var allAxis = (data[0].map(function (i, j) { return i.axis })),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w / 2, cfg.h / 2), 	//Radius of the outermost circle
-		Format = d3.format('%'),			 	//Percentage formatting
+		Format = d3.format("s"),			 	//String formatting
 		angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 
 	//Scale for the radius
@@ -89,20 +91,6 @@ function RadarChart(id, data, options) {
 		.style("fill-opacity", cfg.opacityCircles)
 		.style("filter", "url(#glow)");
 
-
-
-	//Text indicating at what % each level is
-	axisGrid.selectAll(".axisLabel")
-		.data(d3.range(1, (cfg.levels + 1)).reverse())
-		.enter().append("text")
-		.attr("class", "axisLabel")
-		.attr("x", 4)
-		.attr("y", function (d) { return -d * radius / cfg.levels; })
-		.attr("dy", "0.4em")
-		.style("font-size", "10px")
-		.attr("fill", "#737373")
-		.text(function (d, i) { return Format(maxValue * d / cfg.levels); });
-
 	/////////////////////////////////////////////////////////
 	//////////////////// Draw the axes //////////////////////
 	/////////////////////////////////////////////////////////
@@ -123,8 +111,22 @@ function RadarChart(id, data, options) {
 		.style("stroke", "white")
 		.style("stroke-width", "2px");
 
+	//Text indicating each level
+	axisGrid.selectAll(".axisLabel")
+		.data(d3.range(1, (cfg.levels + 1)).reverse())
+		.enter().append("text")
+		.attr("class", "axisLabel")
+		.attr("x", -3)
+		.attr("y", function (d) { return -d * radius / cfg.levels; })
+		.attr("dy", "0.4em")
+		.style("font-size", "12px")
+		.style("font-weight", "bold")
+		.attr("fill", "black")
+		.text(function (d, i) { return Format(d); });
+		// .text(function (d, i) { return Format(maxValue * d / cfg.levels); });
+
 	//Append the labels at each axis
-	var xyOffset = 45;
+	var xyOffset = 47;
 	axis.append("text")
 		.attr("class", "legend")
 		.style("font-size", "11px")
@@ -156,7 +158,7 @@ function RadarChart(id, data, options) {
 
 	var outermask = mask.append("circle")
 		// the radius of the hole
-		.attr("r", 240)
+		.attr("r", 255)
 		// next two positions the hollow portion of the circle  
 		.attr("cx", 0)
 		.attr("cy", 0)
@@ -165,7 +167,7 @@ function RadarChart(id, data, options) {
 	// the circle with a hole mask applied
 	axisGrid.append("circle")
 		.attr("class", "gridCircle")
-		.attr("r", "300")
+		.attr("r", 300)
 		.attr("mask", "url(#hole)")
 		.style("stroke-width", 2)
 		.style("fill", "#0B76C5")
@@ -182,21 +184,21 @@ function RadarChart(id, data, options) {
 	// console.log("y is " + degree + " is: " + 300 * Math.cos(degree));
 	rectangles
 		.attr("x", function(d) {
-			if (d == 90) { return 235; 
+			if (d == 90) { return 245; 
 			} else if (d == 270) { return -308;
 			} else return -15; 
 		})
 		.attr("y", function(d) {
 			if (d == 0) {return -308; 
-			} else if (d == 180){ return 235; 
+			} else if (d == 180){ return 245; 
 			} else return -15;
 		})
 		.attr("width", function(d) {
 			if (d == 0 || d == 180) { return 30;
-			} else return 75;
+			} else return 65;
 		})
 		.attr("height", function(d) {
-			if (d == 0 || d == 180) { return 75;
+			if (d == 0 || d == 180) { return 65;
 			} else return 30;
 		})
 		.attr("rx", "10")
