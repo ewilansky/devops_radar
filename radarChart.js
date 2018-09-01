@@ -152,12 +152,14 @@ function RadarChart(id, data, options) {
 	var mask = axisGrid.append("mask")
 		.attr("id", "hole");
 
-	var circle = mask.append("circle")
+	mask.append("circle")
+		.attr("class", "maskOuter")
 		.attr("r", 300)
 		.attr("fill", "white");
 
-	var outermask = mask.append("circle")
-		// the radius of the hole
+	mask.append("circle")
+		.attr("class", "innerMask")
+		// the inner radius of the hole
 		.attr("r", 255)
 		// next two positions the hollow portion of the circle  
 		.attr("cx", 0)
@@ -173,33 +175,44 @@ function RadarChart(id, data, options) {
 		.style("fill", "#0B76C5")
 		.style("stroke", "#000000");
 
+	// not using this, but set it up in case the rectangles all need to 
+	// be modified in a consistent way
+	var rectangleGroup = axisGrid.append("g");
+
 	var rectangleAt = [0, 90, 180, 270];
 	
-	var rectangles = axisGrid.selectAll("rect")
+	var rectangles = rectangleGroup.selectAll("rect")
 		.data(rectangleAt)
 		.enter()
 		.append("rect");
 
-	// console.log("x for " + degree + " is: " + 300 * Math.sin(degree));
-	// console.log("y is " + degree + " is: " + 300 * Math.cos(degree));
+	var outerRadius = parseInt(axisGrid.select(".maskOuter").attr("r"));
+
 	rectangles
-		.attr("x", function(d) {
-			if (d == 90) { return 245; 
-			} else if (d == 270) { return -308;
-			} else return -15; 
+		.attr("x", function(d) { console.log("in x, d is now:" + d);
+			return Math.round(outerRadius * Math.sin(d * Math.PI / 180));
 		})
-		.attr("y", function(d) {
-			if (d == 0) {return -308; 
-			} else if (d == 180){ return 245; 
-			} else return -15;
+		.attr("y", function(d) { console.log("in y, d is now:" + d);
+			return Math.round(outerRadius * Math.cos(d * Math.PI / 180));
 		})
-		.attr("width", function(d) {
-			if (d == 0 || d == 180) { return 30;
+		.attr("width", function(d,i) {
+			if (i == 0 || i == 2) { return 30;
 			} else return 65;
 		})
-		.attr("height", function(d) {
-			if (d == 0 || d == 180) { return 65;
+		.attr("height", function(d,i) {
+			if (i == 0 || i == 2) { return 65;
 			} else return 30;
+		})
+		.attr("transform", function(d,i) {
+			if (i == 0) {
+				return "translate(-15, -54)";
+			} else if (i == 1) {
+				return "translate(-54, -15)";
+			} else if (i == 2) {
+				return "translate(-15, -10)";
+			} else {
+				return "translate(-10, -15)";
+			}
 		})
 		.attr("rx", "10")
 		.attr("ry", "10")
@@ -343,5 +356,9 @@ function RadarChart(id, data, options) {
 			}
 		});
 	}//wrap	
+
+	function degrees_to_radians(degrees) {
+		return degrees * Math.PI / 180;
+	}
 
 }//RadarChart
