@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>Smoothed D3.js Radar Chart</title>
 
 		<!-- Google fonts -->
@@ -59,24 +59,25 @@
 			////////////////////////////////////////////////////////////// 
 
 			var data = [
-					  [ 
-						{axis:"Hypothesize",value:0.22},
-						{axis:"Collaborate & Research",value:0.28},
-						{axis:"Architect",value:0.29},
-						{axis:"Synthesize",value:0.17},
-						{axis:"Develop",value:0.22},
-						{axis:"Build",value:0.02},
-						{axis:"Test End-To-End",value:0.21},
-						{axis:"Stage",value:0.50},
-						{axis:"Deploy",value:0.22},
-						{axis:"Verify",value:0.28},
-						{axis:"Monitor",value:0.29},
-						{axis:"Respond",value:0.17},
-						{axis:"Release",value:0.22},
-						{axis:"Stabilize",value:0.02},
-						{axis:"Measure",value:0.21},
-						{axis:"Learn",value:0.50}		
-					  ],[
+					  [
+					    {axis:"Hypothesize",value:1},
+						{axis:"Collaborate & Research",value:2},
+						{axis:"Architect",value:1},
+						{axis:"Synthesize",value:4},
+						{axis:"Develop",value:3},
+						{axis:"Build",value:4},
+						{axis:"Test End-To-End",value:1},
+						{axis:"Stage",value:1},
+						{axis:"Deploy",value:2},
+						{axis:"Verify",value:3},
+						{axis:"Monitor",value:4},
+						{axis:"Respond",value:3},
+						{axis:"Release",value:2},
+						{axis:"Stabilize",value:2},
+						{axis:"Measure",value:1},
+						{axis:"Learn",value:4}
+					  ],
+					  [
 					  	{axis:"Hypothesize",value:0.24},
 						{axis:"Collaborate & Research",value:0.22},
 						{axis:"Architect",value:0.25},
@@ -123,7 +124,7 @@
 			  w: width,
 			  h: height,
 			  margin: margin,
-			  maxValue: 0.5,
+			  maxValue: 5,
 			  levels: 6,
 			  roundStrokes: true,
 			  color: color
