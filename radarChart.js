@@ -129,11 +129,26 @@ function RadarChart(id, data, options) {
 
 	var defs = axisGrid.append("defs");
 
+	defs.append("marker")
+		.attr("id", "markerRectangle")
+		.attr("markerWidth", 50)
+		.attr("markerHeight", 50)
+		.attr("orient", "auto")
+		.attr("markerUnits", "userSpaceOnUse")
+		.append("rect")
+			.attr("x", 100)
+			.attr("y", 100)
+			.attr("height", 50)
+			.attr("width", 50)
+			.style("stroke", "red")
+			.style("fill", "black");
+
 	var textArcPaths = defs.selectAll()
 		.data(outerCirData)	
 		.enter()
 		.append("path")
 			.attr("id", function(d, i) { return "text-path-" + i; })
+			.style("marker-start", "url(#markerRectangle")
 			.attr("d", function(d, i) { return removeInnerArc(arcTextGenerator({
 				startAngle: d.angles.start,
 				endAngle: d.angles.end
@@ -213,7 +228,7 @@ function RadarChart(id, data, options) {
 		.style("font-size", "12px")
 		.style("font-weight", "bold")
 		.attr("fill", "black")
-		.text(function (d, i) { console.log("value of d:" + d); return Format(d); });
+		.text(function (d, i) { return Format(d); });
 		// .text(function (d, i) { return Format(maxValue * d / cfg.levels); });
 
 
