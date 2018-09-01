@@ -189,10 +189,10 @@ function RadarChart(id, data, options) {
 	var outerRadius = parseInt(axisGrid.select(".maskOuter").attr("r"));
 
 	rectangles
-		.attr("x", function(d) { console.log("in x, d is now:" + d);
+		.attr("x", function(d) {
 			return Math.round(outerRadius * Math.sin(d * Math.PI / 180));
 		})
-		.attr("y", function(d) { console.log("in y, d is now:" + d);
+		.attr("y", function(d) {
 			return Math.round(outerRadius * Math.cos(d * Math.PI / 180));
 		})
 		.attr("width", function(d,i) {
