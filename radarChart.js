@@ -13,8 +13,8 @@ function RadarChart(id, data, options) {
 		h: 600,				//Height of the circle
 		margin: { top: 20, right: 20, bottom: 20, left: 20 }, //The margins of the SVG
 		levels: 5,				//How many levels or inner circles should there be drawn
-		maxValue: 5, 			//What is the value that the biggest circle will represent
-		labelFactor: .92, 		//How much farther than the radius of the outer circle should the labels be placed
+		maxValue: 6, 			//What is the value that the biggest circle will represent
+		labelFactor: 1.09, 		//How much farther than the radius of the outer circle should the labels be placed
 		wrapWidth: 70, 			//The number of pixels after which a label needs to be given a new line
 		opacityArea: 0.35, 		//The opacity of the area of the blob
 		dotRadius: 4, 			//The size of the colored circles of each blob
@@ -85,7 +85,7 @@ function RadarChart(id, data, options) {
 		});
 	  }
 
-	var r = 290;
+	var r = 308;
 	var offsetOuterCircles = 0.01;
 
 	var arcGenerator = d3.svg.arc()
@@ -98,34 +98,34 @@ function RadarChart(id, data, options) {
 
 	var outerCirData = [
 		{
-			label: 'Label 1',
+			label: 'CONTINUOUS EXPLORATION',
 			angles: {
 				start: offsetOuterCircles, 
 				end: Math.PI * 2 / 4 - offsetOuterCircles
 			}
 		},
 		{
-			label: 'Label 2',
+			label: 'CONTINUOUS INTEGRATION',
 			angles: {
 				start: Math.PI * 2 / 4 + offsetOuterCircles, 
 				end: Math.PI - offsetOuterCircles
 			}
 		},
 		{
-			label: 'Label 3',
+			label: 'CONTINUOUS DEPLOYMENT',
 			angles: {
 				start: Math.PI + offsetOuterCircles, 
 				end: Math.PI * 3 / 2  - offsetOuterCircles, 
 			}
 		},
 		{
-			label: 'Label 4',
+			label: 'RELEASE ON DEMAND',
 			angles: {
 				start: Math.PI * 3 / 2 + offsetOuterCircles,
 				end: Math.PI * 2 - offsetOuterCircles
 			}
 		}
-	]
+	];
 
 	var defs = axisGrid.append("defs");
 
@@ -133,14 +133,14 @@ function RadarChart(id, data, options) {
 		.data(outerCirData)	
 		.enter()
 		.append("path")
-			.attr("id", function(d, i) { return "text-path-" + i })
+			.attr("id", function(d, i) { return "text-path-" + i; })
 			.attr("d", function(d, i) { return removeInnerArc(arcTextGenerator({
 				startAngle: d.angles.start,
 				endAngle: d.angles.end
-			}))
+			}));
 		});
 
-	axisGrid.selectAll()
+	axisGrid.selectAll("arcContainer")
 		.data(outerCirData)
 		.enter()
 		.append("path")
@@ -148,31 +148,31 @@ function RadarChart(id, data, options) {
 				return arcGenerator({
 					startAngle: d.angles.start,
 					endAngle: d.angles.end
-				})
+				});
 			})
+		.style("fill", "rgb(18, 96, 173)");
 
 	textArcPaths.append("clipPath")
 	  .attr("id", "text-clip")
 	  .append("use")
 	  .attr("xlink:href", "#path");
 
-	axisGrid.selectAll("fake2")
+	axisGrid.selectAll()
 		.data(outerCirData)
 		.enter()
 		.append("text")
 		.attr("clip-path", "url(#text-clip)")
 		.append("textPath")
-		.attr("xlink:href", function (d, i) { return "#text-path-" + i })
-		.text(function (d) { return d.label })
+		.attr("xlink:href", function (d, i) { return "#text-path-" + i; })
+		.text(function (d) { return d.label; })
 		// You need the following two lines to position the text correctly
 		.attr("text-anchor", "middle")
 		.attr("startOffset", "50%")
-		  .attr("class", "outerLabelText")
-
+		.attr("class", "outerLabelText");
 
 	//Draw the background circles
 	axisGrid.selectAll(".levels")
-		.data(d3.range(1, (cfg.levels + 1)).reverse())
+		.data(d3.range(1, (cfg.levels + 2)).reverse())
 		.enter()
 		.append("circle")
 		.attr("class", "gridCircle")
@@ -181,18 +181,6 @@ function RadarChart(id, data, options) {
 		.style("stroke", "#CDCDCD")
 		.style("fill-opacity", cfg.opacityCircles);
 		//.style("filter" , "url(#glow)");
-
-	//Text indicating at what % each level is
-	axisGrid.selectAll(".axisLabel")
-	   .data(d3.range(1,(cfg.levels+1)).reverse())
-	   .enter().append("text")
-	   .attr("class", "axisLabel")
-	   .attr("x", 4)
-	   .attr("y", function(d){return -d*radius/cfg.levels;})
-	   .attr("dy", "0.4em")
-	   .style("font-size", "10px")
-	   .attr("fill", "#737373")
-	   .text(function(d,i) { return Format(maxValue * d/cfg.levels); });
 
 	/////////////////////////////////////////////////////////
 	//////////////////// Draw the axes //////////////////////
@@ -216,17 +204,18 @@ function RadarChart(id, data, options) {
 
 	//Text indicating each level
 	axisGrid.selectAll(".axisLabel")
-		.data(d3.range(1, (cfg.levels + 1)).reverse())
+		.data(d3.range(1, (cfg.levels)).reverse())
 		.enter().append("text")
 		.attr("class", "axisLabel")
 		.attr("x", -3)
-		.attr("y", function (d) { return -d * radius / cfg.levels; })
+		.attr("y", function (d) { return (-d * radius / cfg.levels) - 20; })
 		.attr("dy", "0.4em")
 		.style("font-size", "12px")
 		.style("font-weight", "bold")
 		.attr("fill", "black")
-		.text(function (d, i) { return Format(d); });
+		.text(function (d, i) { console.log("value of d:" + d); return Format(d); });
 		// .text(function (d, i) { return Format(maxValue * d / cfg.levels); });
+
 
 	//Append the labels at each axis
 	var xyOffset = 47;
@@ -251,6 +240,18 @@ function RadarChart(id, data, options) {
 		.text(function (d) { return d; })
 		.call(wrap, cfg.wrapWidth);
 
+		//Text indicating numeric level
+		axisGrid.selectAll(".axisLabel")
+			.data(d3.range(1,(cfg.levels)).reverse())
+			.enter().append("text")
+			.attr("class", "axisLabel")
+			.attr("x", -3)
+			.attr("y", function(d){return -d*radius/cfg.levels;})
+			.attr("dy", "0.4em")
+			.style("font-size", "12px")
+			.attr("fill", "#737373")
+			.text(function (d, i) { return Format(d); });
+			// .text(function(d,i) { return Format(maxValue * d/cfg.levels); });
 	
 	//Append the backgrounds	
 	// blobWrapper
