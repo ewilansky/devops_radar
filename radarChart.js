@@ -77,6 +77,97 @@ function RadarChart(id, data, options) {
 	//Wrapper for the grid & axes
 	var axisGrid = g.append("g").attr("class", "axisWrapper");
 	
+	function removeInnerArc(path) {
+		return path.replace(/(M.*A.*)(A.*Z)/, function(_, m1) {
+		  return m1 || path;
+		});
+	  }
+
+	var r = 290;
+	var offsetOuterCircles = 0.01;
+
+	var arcGenerator = d3.svg.arc()
+	  .innerRadius(r - 40)
+	  .outerRadius(r);
+
+	var arcTextGenerator = d3.svg.arc()
+	  .innerRadius(r - 30)
+	  .outerRadius(r - 30);
+
+	var outerCirData = [
+		{
+			label: 'Label 1',
+			angles: {
+				start: offsetOuterCircles, 
+				end: Math.PI * 2 / 4 - offsetOuterCircles
+			}
+		},
+		{
+			label: 'Label 2',
+			angles: {
+				start: Math.PI * 2 / 4 + offsetOuterCircles, 
+				end: Math.PI - offsetOuterCircles
+			}
+		},
+		{
+			label: 'Label 3',
+			angles: {
+				start: Math.PI + offsetOuterCircles, 
+				end: Math.PI * 3 / 2  - offsetOuterCircles, 
+			}
+		},
+		{
+			label: 'Label 4',
+			angles: {
+				start: Math.PI * 3 / 2 + offsetOuterCircles,
+				end: Math.PI * 2 - offsetOuterCircles
+			}
+		}
+	]
+
+	var defs = axisGrid.append("defs");
+
+	var textArcPaths = defs.selectAll()
+		.data(outerCirData)	
+		.enter()
+		.append("path")
+			.attr("id", function(d, i) { return "text-path-" + i })
+			.attr("d", function(d, i) { return removeInnerArc(arcTextGenerator({
+				startAngle: d.angles.start,
+				endAngle: d.angles.end
+			}))
+		});
+
+	axisGrid.selectAll()
+		.data(outerCirData)
+		.enter()
+		.append("path")
+			.attr("d", function (d) {
+				return arcGenerator({
+					startAngle: d.angles.start,
+					endAngle: d.angles.end
+				})
+			})
+
+	textArcPaths.append("clipPath")
+	  .attr("id", "text-clip")
+	  .append("use")
+	  .attr("xlink:href", "#path");
+
+	axisGrid.selectAll("fake2")
+		.data(outerCirData)
+		.enter()
+		.append("text")
+		.attr("clip-path", "url(#text-clip)")
+		.append("textPath")
+		.attr("xlink:href", function (d, i) { return "#text-path-" + i })
+		.text(function (d) { return d.label })
+		// You need the following two lines to position the text correctly
+		.attr("text-anchor", "middle")
+		.attr("startOffset", "50%")
+		  .attr("class", "outerLabelText")
+
+
 	//Draw the background circles
 	axisGrid.selectAll(".levels")
 	   .data(d3.range(1,(cfg.levels+1)).reverse())
@@ -86,8 +177,8 @@ function RadarChart(id, data, options) {
 		.attr("r", function(d, i){return radius/cfg.levels*d;})
 		.style("fill", "#CDCDCD")
 		.style("stroke", "#CDCDCD")
-		.style("fill-opacity", cfg.opacityCircles)
-		.style("filter" , "url(#glow)");
+		.style("fill-opacity", cfg.opacityCircles);
+		//.style("filter" , "url(#glow)");
 
 	//Text indicating at what % each level is
 	axisGrid.selectAll(".axisLabel")
@@ -115,8 +206,8 @@ function RadarChart(id, data, options) {
 	axis.append("line")
 		.attr("x1", 0)
 		.attr("y1", 0)
-		.attr("x2", function(d, i){ return rScale(maxValue*1.1) * Math.cos(angleSlice*i - Math.PI/2); })
-		.attr("y2", function(d, i){ return rScale(maxValue*1.1) * Math.sin(angleSlice*i - Math.PI/2); })
+		.attr("x2", function(d, i){ return rScale(maxValue) * Math.cos(angleSlice*i - Math.PI/2); })
+		.attr("y2", function(d, i){ return rScale(maxValue) * Math.sin(angleSlice*i - Math.PI/2); })
 		.attr("class", "line")
 		.style("stroke", "white")
 		.style("stroke-width", "2px");
@@ -254,6 +345,10 @@ function RadarChart(id, data, options) {
 	/////////////////////////////////////////////////////////
 	/////////////////// Helper Function /////////////////////
 	/////////////////////////////////////////////////////////
+
+	function computeTextRotation(d) {
+	  return (x(d.x + d.dx / 2)) / Math.PI * 180;
+	}
 
 	//Taken from http://bl.ocks.org/mbostock/7555321
 	//Wraps SVG text	
