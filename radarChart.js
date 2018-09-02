@@ -21,7 +21,7 @@ function RadarChart(id, data, options) {
 		opacityCircles: 0.1, 	//The opacity of the circles of each blob
 		strokeWidth: 2, 		//The width of the stroke around each blob
 		roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
-		color: d3.scale.category10()	//Color function
+		color: d3.scaleOrdinal(d3.schemeCategory10) // Color function for D3js v4+
 	};
 
 	//Put all of the options into a variable called cfg
@@ -37,11 +37,11 @@ function RadarChart(id, data, options) {
 	var allAxis = (data[0].map(function (i, j) { return i.axis })),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w / 2, cfg.h / 2), 	//Radius of the outermost circle
-		Format = d3.format("s"),			 	//String formatting
+		Format = d3.format("~s"),			 	//String formatting w/trim insignificant trailing zeros
 		angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 
 	//Scale for the radius
-	var rScale = d3.scale.linear()
+	var rScale = d3.scaleLinear()
 		.range([0, radius])
 		.domain([0, maxValue]);
 
@@ -88,11 +88,11 @@ function RadarChart(id, data, options) {
 	var r = 308;
 	var offsetOuterCircles = 0.01;
 
-	var arcGenerator = d3.svg.arc()
+	var arcGenerator = d3.arc()
 	  .innerRadius(r - 40)
 	  .outerRadius(r);
 
-	var arcTextGenerator = d3.svg.arc()
+	var arcTextGenerator = d3.arc()
 	  .innerRadius(r - 30)
 	  .outerRadius(r - 30);
 
@@ -129,26 +129,28 @@ function RadarChart(id, data, options) {
 
 	var defs = axisGrid.append("defs");
 
-	defs.append("marker")
-		.attr("id", "markerRectangle")
+	var textArcPaths = defs.selectAll("marker")
+		.data(outerCirData)	
+		.enter().append("marker")
+
+		.attr("id", function(d,i) { console.log(i); return "marker-" + i; })
+		// .attr("viewBox", "0 -5 10 10")
+		.attr("refX", 7)
+		.attr("refY", 7)
 		.attr("markerWidth", 50)
 		.attr("markerHeight", 50)
 		.attr("orient", "auto")
-		.attr("markerUnits", "userSpaceOnUse")
 		.append("rect")
 			.attr("x", 100)
 			.attr("y", 100)
 			.attr("height", 50)
 			.attr("width", 50)
 			.style("stroke", "red")
-			.style("fill", "black");
+			.style("fill", "black")
 
-	var textArcPaths = defs.selectAll()
-		.data(outerCirData)	
-		.enter()
 		.append("path")
 			.attr("id", function(d, i) { return "text-path-" + i; })
-			.style("marker-start", "url(#markerRectangle")
+			.style("marker-start", function(d,i) { return "url(#marker-" + i; })
 			.attr("d", function(d, i) { return removeInnerArc(arcTextGenerator({
 				startAngle: d.angles.start,
 				endAngle: d.angles.end

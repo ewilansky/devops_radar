@@ -9,7 +9,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
 		<!-- D3.js -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+		<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
 		
 		<style>
 			body {
@@ -123,7 +123,7 @@
 			//////////////////// Draw the Chart ////////////////////////// 
 			////////////////////////////////////////////////////////////// 
 
-			var color = d3.scale.ordinal()
+			var color = d3.scaleOrdinal()
 				.range(["#EDC951","#CC333F","#00A0B0"]);
 				
 			var radarChartOptions = {
