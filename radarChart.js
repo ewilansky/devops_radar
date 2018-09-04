@@ -19,6 +19,7 @@ function RadarChart(id, data, options) {
 		opacityArea: 0.35, 		//The opacity of the area of the blob
 		dotRadius: 4, 			//The size of the colored circles of each blob
 		opacityCircles: 0.2, 	//The opacity of the circles of each blob
+<<<<<<< Updated upstream
 		strokeWidth: 2, 		//The width of the stroke around each blob
 		roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
 		color: d3.scaleOrdinal(d3.schemeCategory20c) // Color function for D3js v4+
@@ -26,6 +27,14 @@ function RadarChart(id, data, options) {
 		// 	.domain([1,2,3,4,5,6,7,8,9,10,11])
 		// 	.range(['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928'])
 	};
+=======
+		strokeWidth: 1, 		//The width of the stroke around each blob
+		roundStrokes: true,	//If true the area and stroke will follow a round path (cardinal-closed)
+		// colors: d3.scaleOrdinal(d3.schemeCategory20b) // Color function for D3js v4+
+		// colors: d3.scaleOrdinal(d3.schemePaired)
+		colors: d3.scaleOrdinal(["#5eb659","#c75a8c","#b3b343","#6585cc","#d24b3d","#4db5a4","#b76a52","#667d38","#cf8f41","#a361c7"])
+		};
+>>>>>>> Stashed changes
 
 	//Put all of the options into a variable called cfg
 	if ('undefined' !== typeof options) {
@@ -132,7 +141,28 @@ function RadarChart(id, data, options) {
 
 	var defs = axisGrid.append("defs");
 
-	var textArcPaths = defs.selectAll("marker")
+	defs.append("marker")
+		.attr("id", "rectangle")
+		// .attr("viewBox", "0 0 20 20")
+		.attr("refX", "15")
+		.attr("refY", "15")
+		// .attr("markerUnits", "userSpaceOnUse")
+		.attr("markerWidth", 70)
+		.attr("markerHeight", 40)
+		.attr("orient", "auto")
+		// .attr("fill", "black")
+		// .append("path")
+		// 	.attr("d", "M0 0 10 0 20 10 10 20 0 20 10 10Z");
+		.append("rect")
+			.attr("width", 65)
+			.attr("height", 35)
+			.attr("stroke", "black")
+			// .attr("stroke-width", "1 px")
+			// .style("fill", "rgb(18, 96, 173)");
+			.style("fill", "white");
+
+
+	var textArcPaths = defs.selectAll()
 		.data(outerCirData)	
 		.enter()
 		.append("path")
@@ -153,7 +183,8 @@ function RadarChart(id, data, options) {
 					endAngle: d.angles.end
 				});
 			})
-		.style("fill", "rgb(18, 96, 173)");
+		.style("fill", "rgb(18, 96, 173)")
+  		.attr("marker-end","url(#rectangle)");
 
 	textArcPaths.append("clipPath")
 	  .attr("id", "text-clip")
