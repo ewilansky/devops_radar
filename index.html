@@ -106,8 +106,8 @@
 			//////////////////// Draw the Chart ////////////////////////// 
 			////////////////////////////////////////////////////////////// 
 
-			var color = d3.scaleOrdinal()
-				.range(["#EDC951","#CC333F","#00A0B0"]);
+			var color = d3.scaleOrdinal(d3.schemeCategory10)
+			// d3.scaleOrdinal(["#5eb659","#c75a8c","#b3b343","#6585cc","#d24b3d","#4db5a4","#b76a52","#667d38","#cf8f41","#a361c7"]);
 				
 			var radarChartOptions = {
 			  w: width,
@@ -115,7 +115,7 @@
 			  margin: margin,
 			  maxValue: 5,
 			  levels: 6,
-			  roundStrokes: true,
+			  roundStrokes: false,
 			  color: color
 			};
 			//Call function to draw the Radar chart
