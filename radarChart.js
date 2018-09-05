@@ -17,7 +17,7 @@ function RadarChart(id, data, options) {
 		labelFactor: 1.09, 		//How much farther than the radius of the outer circle should the labels be placed
 		wrapWidth: 70, 			//The number of pixels after which a label needs to be given a new line
 		opacityArea: 0.35, 		//The opacity of the area of the blob
-		dotRadius: 4, 			//The size of the colored circles of each blob
+		dotRadius: 3, 			//The size of the colored circles of each blob
 		opacityCircles: 0.2, 	//The opacity of the circles of each blob
 		strokeWidth: 1, 		//The width of the stroke around each blob
 		roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
@@ -203,7 +203,7 @@ function RadarChart(id, data, options) {
 		})
 		.append('rect')
 		.attr('x', (d, i) => i % 2 == 0 ? -14 : -26)
-		.attr('y', (d, i) => i % 2 == 0 ? -30 : -19)
+		.attr('y', (d, i) => i % 2 == 0 ? -28 : -19)
 		.attr('width', 30)
 		.attr('width', (d, i) => i % 2 == 0 ? 30 : 55 )
 		.attr('height', (d, i) => i % 2 == 0 ? 55 : 30 )
@@ -232,24 +232,8 @@ function RadarChart(id, data, options) {
 		.style("stroke", "black")
 		.style("stroke-width", "1px");
 
-	//Text indicating each level
-	//TODO: replace with circles containing a number for each level
-	axisGrid.selectAll(".axisLabel")
-		.data(d3.range(1, (cfg.levels)).reverse())
-		.enter().append("text")
-		.attr("class", "axisLabel")
-		.attr("x", -3)
-		.attr("y", function (d) { return (-d * radius / cfg.levels) - 20; })
-		.attr("dy", "0.4em")
-		.style("font-size", "12px")
-		.style("font-weight", "bold")
-		.attr("fill", "black")
-		.text(function (d, i) { return Format(d); });
-		// .text(function (d, i) { return Format(maxValue * d / cfg.levels); });
-
-
 	//Append the labels at each axis
-	var xyOffset = 47;
+	var xyOffset = 52;
 	axis.append("text")
 		.attr("class", "legend")
 		.style("font-size", "11px")
@@ -271,19 +255,19 @@ function RadarChart(id, data, options) {
 		.text(function (d) { return d; })
 		.call(wrap, cfg.wrapWidth);
 
-		//Text indicating numeric level
+		//Text indicating each level
+		//TODO: replace with circles containing a number for each level
 		axisGrid.selectAll(".axisLabel")
-			.data(d3.range(1,(cfg.levels)).reverse())
-			.enter().append("text")
-			.attr("class", "axisLabel")
-			.attr("x", -3)
-			.attr("y", function(d){return -d*radius/cfg.levels;})
-			.attr("dy", "0.4em")
-			.style("font-size", "12px")
-			.attr("fill", "#737373")
-			.text(function (d, i) { return Format(d); });
-			// .text(function(d,i) { return Format(maxValue * d/cfg.levels); });
-	
+		.data(d3.range(1, (cfg.levels)).reverse())
+		.enter().append("text")
+		.attr("class", "axisLabel")
+		.attr("x", -3)
+		.attr("y", function (d) { return (-d * radius / cfg.levels) - 20; })
+		.attr("dy", "0.4em")
+		.style("font-size", "16px")
+		.style("font-weight", "bold")
+		.attr("fill", "black")
+		.text(function (d, i) { return Format(d); });
 
 	/////////////////////////////////////////////////////////
 	///////////// Draw the radar chart blobs ////////////////
@@ -295,7 +279,7 @@ function RadarChart(id, data, options) {
 		.radius(function(d) { return rScale(d.value); })
 		.angle(function(d,i) {	return i*angleSlice; });
 		
-	if(cfg.roundStrokes) {
+	if (cfg.roundStrokes) {
 		radarLine.curve(d3.curveCardinalClosed);
 	}
 				
@@ -341,16 +325,28 @@ function RadarChart(id, data, options) {
 		.style("fill", "none")
 		.style("filter" , "url(#glow)");		
 
+
 	//Append the circles
 	blobWrapper.selectAll(".radarCircle")
 		.data(function(d,i) { return d; })
-		.enter().append("circle")
-		.attr("class", "radarCircle")
-		.attr("r", cfg.dotRadius)
-		.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
-		.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
-		.style("fill", function(d,i,j) { return cfg.color(j); })
-		.style("fill-opacity", 0.8);
+		.enter()
+		.append("circle")
+			.attr("class", "radarCircle")
+			.attr("r", cfg.dotRadius)
+			.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
+			.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
+			// original
+			// .style("fill", function(d,i,j) { 
+			//  	return cfg.color(j);
+			// })
+			// DISCUSS: why is this not iterating over the two data elements to return the proper fill values?
+			// 	.style("fill", function() { 
+			// 		return blobWrapper.selectAll("path.radarArea").style("fill");
+			//    })
+			.style("fill", "rgb(18, 96, 173)")
+			.style("fill-opacity", 1);
+
+	// color the circles
 
 	/////////////////////////////////////////////////////////
 	//////// Append invisible circles for tooltip ///////////
@@ -360,6 +356,7 @@ function RadarChart(id, data, options) {
 	var blobCircleWrapper = g.selectAll(".radarCircleWrapper")
 		.data(data)
 		.enter().append("g")
+		.attr("transform", "rotate(10)")
 		.attr("class", "radarCircleWrapper");
 
 	// Append a set of invisible circles on top for the mouseover pop-up
