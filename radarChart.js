@@ -191,10 +191,6 @@ function RadarChart(id, data, options) {
 		return {startAngle: d.angles.startAngle, endAngle:d.angles.startAngle}; 
 	});
 
-	// var rectData2 = outerCirData.map(d => { 
-	// 	return {startAngle: 6.283185307179586, endAngle: 0.01}; 
-	// });
-
 	d3.select('.axisWrapper')
 		.selectAll('.grect')
 		.data(rectData)
@@ -203,7 +199,6 @@ function RadarChart(id, data, options) {
 		.attr('class', 'grect')
 		.attr('transform', d => {
 			var centroid = arcGenerator.centroid(d);
-			console.log(d.startAngle);
 			return `translate(${centroid[0]},${centroid[1]})`;
 		})
 		.append('rect')
@@ -301,20 +296,16 @@ function RadarChart(id, data, options) {
 		.attr("class", "radarArea")
 		.attr("d", function(d,i) { return radarLine(d); })
 		.style("fill", function(d,i) { return cfg.color(i); })
+		.style("id", function(d,i) {return "radarArea" + i; })
 		.style("fill-opacity", cfg.opacityArea)
 		.on('mouseover', function (d,i){
 			//Dim all blobs
-			d3.selectAll(".radarArea")
-				.transition().duration(200)
+			d3.selectAll(".radarArea, .circleGroup")
 				.style("fill-opacity", 0.1); 
-			//Bring back the hovered over blob
+			d3.select("#circleGroup" + i)
+			 	.call(focusBlob, 0.3);
 			d3.select(this)
-				.transition().duration(200)
-				.style("fill-opacity", 0.7)
-				.selectAll(".circleGroup")
-				.transition().duration(200)
-				.style("fill-opacity", 0.7);
-
+				.call(focusBlob);
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
@@ -331,31 +322,36 @@ function RadarChart(id, data, options) {
 		// .style("stroke", function(d,i) { return cfg.color(i); })
 		.style("stroke", "black")
 		.style("fill", "none")
-		.style("filter" , "url(#glow)");		
+		.style("filter" , "url(#glow)");
 
-	// create a group for the circles so circles can be styled and behave with the blob area	
+	// create a group for the circles so circles can be styled and behave with the blob area
 	var circleGroup = g.selectAll(".circleGroup")
 		.data(data)
 		.enter()
 		.append("g")
 			.attr("class", "circleGroup")
 			.attr("transform", "rotate(10)")
+			.style("fill-opacity", cfg.opacityArea)
 			.style("fill", (d, i) => {
 				return cfg.color(i);
+			})
+			.attr("id", (d, i) => {
+				return "circleGroup" + i;
 			});
 
 	//Append the circles
 	circleGroup.selectAll(".radarCircle")
-	// blobWrapper.selectAll(".radarCircle")
 		.data(function(d,i) { return d; })
 		.enter()
 		.append("circle")
 			.attr("class", "radarCircle")
+			.attr("id", (d,i) => "radarCircle" + i)
 			.attr("r", cfg.dotRadius)
 			.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
-			.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
-			.style("fill-opacity", 1)
-			//.style("fill-opacity", cfg.opacityArea);
+			.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); });
+			// .style("fill-opacity", 1); 
+			// .style("fill-opacity", cfg.opacityArea);
+
 
 	/////////////////////////////////////////////////////////
 	//////// Append invisible circles for tooltip ///////////
@@ -430,6 +426,11 @@ function RadarChart(id, data, options) {
 				}
 			}
 		});
-	}//wrap	
+	}//wrap
+
+	// put the focus on the selected graphical element by increasing opacity
+	function focusBlob(selection, increase = 0) {
+		selection.transition().duration(200);
+		selection.style("fill-opacity", 0.7 + increase); }
 
 }//RadarChart
