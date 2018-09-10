@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////
-/////////////// The Radar Chart Function /////////////////
-/////////////// Altered by Ethan & Tomek /////////////////
+/////////////// The DevOps Radar Chart   /////////////////
+// Modified & Updated Ethan Wilansky and Tomek Stojecki //
 ///////////////////////// AHL ////////////////////////////
 /////////// Inspired by the code of Nadieh Bremer ////////
 /////////////////// VisualCinnamon.com ///////////////////
-//////////////////////and alangrafu //////////////////////
+////////////////////// and alangrafu /////////////////////
 //////////////////////////////////////////////////////////
 
 function RadarChart(id, data, options) {
@@ -22,6 +22,7 @@ function RadarChart(id, data, options) {
 		strokeWidth: 1, 		//The width of the stroke around each blob
 		roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
 		color: d3.scaleOrdinal(d3.schemeCategory10) // Color function for D3js v4+
+		// some other default color schemes to consider
 		// color: d3.scaleOrdinal(d3.schemePaired)
 		// color: d3.scaleOrdinal(["#5eb659","#c75a8c","#b3b343","#6585cc","#d24b3d","#4db5a4","#b76a52","#667d38","#cf8f41","#a361c7"])
 		};
@@ -309,7 +310,7 @@ function RadarChart(id, data, options) {
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
-			d3.selectAll(".radarArea")
+			d3.selectAll(".radarArea, .circleGroup")
 				.transition().duration(200)
 				.style("fill-opacity", cfg.opacityArea);
 		});
@@ -349,9 +350,6 @@ function RadarChart(id, data, options) {
 			.attr("r", cfg.dotRadius)
 			.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
 			.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); });
-			// .style("fill-opacity", 1); 
-			// .style("fill-opacity", cfg.opacityArea);
-
 
 	/////////////////////////////////////////////////////////
 	//////// Append invisible circles for tooltip ///////////
@@ -393,6 +391,7 @@ function RadarChart(id, data, options) {
 	//Set up the small tooltip for when you hover over a circle
 	var tooltip = g.append("text")
 		.attr("class", "tooltip")
+		.attr("transform", "rotate(10)")
 		.style("opacity", 0);
 
 	/////////////////////////////////////////////////////////
@@ -430,7 +429,9 @@ function RadarChart(id, data, options) {
 
 	// put the focus on the selected graphical element by increasing opacity
 	function focusBlob(selection, increase = 0) {
-		selection.transition().duration(200);
-		selection.style("fill-opacity", 0.7 + increase); }
+		selection
+			.transition().duration(200)
+			.style("fill-opacity", 0.7 + increase); 
+	}
 
 }//RadarChart
