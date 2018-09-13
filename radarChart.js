@@ -16,12 +16,13 @@ function RadarChart(id, data, options) {
 		maxValue: 6, 			//What is the value that the biggest circle will represent
 		labelFactor: 1.09, 		//How much farther than the radius of the outer circle should the labels be placed
 		wrapWidth: 70, 			//The number of pixels after which a label needs to be given a new line
-		opacityArea: 0.35, 		//The opacity of the area of the blob
+		fillAreaBlobs: true,	//Whether the plot areas are filled-in or not
+		opacityArea: 0.50, 		//The opacity of the area of the blob
 		dotRadius: 3, 			//The size of the colored circles of each blob
 		opacityCircles: 0.2, 	//The opacity of the circles of each blob
 		strokeWidth: 1, 		//The width of the stroke around each blob
 		roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
-		color: d3.scaleOrdinal(d3.schemeCategory10) // Color function for D3js v4+
+		color: d3.scaleOrdinal(d3.schemeCategory10), // Color function for D3js v4+
 		// some other default color schemes to consider
 		// color: d3.scaleOrdinal(d3.schemePaired)
 		// color: d3.scaleOrdinal(["#5eb659","#c75a8c","#b3b343","#6585cc","#d24b3d","#4db5a4","#b76a52","#667d38","#cf8f41","#a361c7"])
@@ -35,9 +36,9 @@ function RadarChart(id, data, options) {
 	}//if
 
 	//If the supplied maxValue is smaller than the actual one, replace by the max in the data
-	var maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })) }));
+	var maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })); }));
 
-	var allAxis = (data[0].map(function (i, j) { return i.axis })),	//Names of each axis
+	var allAxis = (data[0].map(function (i, j) { return i.axis; })),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w / 2, cfg.h / 2), 	//Radius of the outermost circle
 		Format = d3.format("~s"),			 	//String formatting w/trim insignificant trailing zerosg
@@ -168,50 +169,10 @@ function RadarChart(id, data, options) {
 		.append("textPath")
 		.attr("xlink:href", function (d, i) { return "#text-path-" + i; })
 		.text(function (d) { return d.label; })
-		// You need the following two lines to position the text correctly
+		// The following two lines position the text correctly
 		.attr("text-anchor", "middle")
 		.attr("startOffset", "50%")
 		.attr("class", "outerLabelText");
-
-	//Draw the background circles
-	axisGrid.selectAll(".levels")
-		.data(d3.range(1, (cfg.levels + 2)).reverse())
-		.enter()
-		.append("circle")
-		.attr("class", "gridCircle")
-		.attr("r", function (d, i) { return radius / cfg.levels * d; })
-		.style("fill", "#F7AD3D")
-		.style("stroke", "#CDCDCD")
-		.style("fill-opacity", cfg.opacityCircles)
-		// .style("filter" , "url(#glow)")
-		.style("stroke", "black")
-		.style("stroke-width", "1px");
-
-	// the rectangles decorating the outer circle
-	var rectData = outerCirData.map(d => { 
-		return {startAngle: d.angles.startAngle, endAngle:d.angles.startAngle}; 
-	});
-
-	d3.select('.axisWrapper')
-		.selectAll('.grect')
-		.data(rectData)
-		.enter()
-		.append('g')
-		.attr('class', 'grect')
-		.attr('transform', d => {
-			var centroid = arcGenerator.centroid(d);
-			return `translate(${centroid[0]},${centroid[1]})`;
-		})
-		.append('rect')
-		.attr('x', (d, i) => i % 2 == 0 ? -14 : -26)
-		.attr('y', (d, i) => i % 2 == 0 ? -28 : -19)
-		.attr('width', 30)
-		.attr('width', (d, i) => i % 2 == 0 ? 30 : 55 )
-		.attr('height', (d, i) => i % 2 == 0 ? 55 : 30 )
-		.attr("fill", "rgb(18, 96, 173)")
-		.attr("stroke", "black")
-		.attr("rx", "10")
-		.attr("ry", "10");
 
 	/////////////////////////////////////////////////////////
 	//////////////////// Draw the axes //////////////////////
@@ -227,9 +188,24 @@ function RadarChart(id, data, options) {
 	axis.append("line")
 		.attr("x1", 0)
 		.attr("y1", 0)
-		.attr("x2", function(d, i){ return rScale(maxValue) * Math.cos(angleSlice*i - Math.PI/2); })
-		.attr("y2", function(d, i){ return rScale(maxValue) * Math.sin(angleSlice*i - Math.PI/2); })
+		.attr("x2", (d,i) => rScale(maxValue) * Math.cos(angleSlice*i - Math.PI/2))
+		.attr("y2", (d,i) => rScale(maxValue) * Math.sin(angleSlice*i - Math.PI/2))
 		.attr("class", "line")
+		.style("stroke", "black")
+		.style("stroke-width", "1px");
+
+	//Draw the background circles
+	axisGrid.selectAll(".levels")
+		.data(d3.range(1, (cfg.levels + 2)).reverse())
+		.enter()
+		.append("circle")
+		.attr("class", "gridCircle")
+		.attr("r", function (d, i) { return radius / cfg.levels * d; })
+		.style("fill", "#F7AD3D")
+		// .style("fill", (d,i) => i == cfg.levels ? "black" : "#F7AD3D")
+		.style("stroke", "#CDCDCD")
+		.style("fill-opacity", (d,i) => i == cfg.levels ? 0.8 : cfg.opacityCircles)
+		// .style("filter" , "url(#glow)")
 		.style("stroke", "black")
 		.style("stroke-width", "1px");
 
@@ -270,6 +246,32 @@ function RadarChart(id, data, options) {
 		.attr("fill", "black")
 		.text(function (d, i) { return Format(d); });
 
+	// the rectangles decorating the outer circle
+	var rectData = outerCirData.map(d => { 
+		return {startAngle: d.angles.startAngle, endAngle:d.angles.startAngle}; 
+	});
+
+	d3.select('.axisWrapper')
+		.selectAll('.grect')
+		.data(rectData)
+		.enter()
+		.append('g')
+		.attr('class', 'grect')
+		.attr('transform', d => {
+			var centroid = arcGenerator.centroid(d);
+			return `translate(${centroid[0]},${centroid[1]})`;
+		})
+		.append('rect')
+		.attr('x', (d, i) => i % 2 == 0 ? -14 : -26)
+		.attr('y', (d, i) => i % 2 == 0 ? -28 : -19)
+		.attr('width', 30)
+		.attr('width', (d, i) => i % 2 == 0 ? 30 : 55 )
+		.attr('height', (d, i) => i % 2 == 0 ? 55 : 30 )
+		.attr("fill", "rgb(18, 96, 173)")
+		.attr("stroke", "black")
+		.attr("rx", "10")
+		.attr("ry", "10");
+
 	/////////////////////////////////////////////////////////
 	///////////// Draw the radar chart blobs ////////////////
 	/////////////////////////////////////////////////////////
@@ -283,7 +285,8 @@ function RadarChart(id, data, options) {
 	if (cfg.roundStrokes) {
 		radarLine.curve(d3.curveCardinalClosed);
 	}
-				
+	
+
 	//Create a wrapper for the blobs	
 	var blobWrapper = g.selectAll(".radarWrapper")
 		.data(data)
@@ -306,7 +309,7 @@ function RadarChart(id, data, options) {
 			d3.select("#circleGroup" + i)
 			 	.call(focusBlob, 0.3);
 			d3.select(this)
-				.call(focusBlob);
+				.call(focusBlob, 0.2);
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
@@ -320,8 +323,7 @@ function RadarChart(id, data, options) {
 		.attr("class", "radarStroke")
 		.attr("d", function(d,i) { return radarLine(d); })
 		.style("stroke-width", cfg.strokeWidth + "px")
-		// .style("stroke", function(d,i) { return cfg.color(i); })
-		.style("stroke", "black")
+		.style("stroke", function(d,i) { return cfg.color(i); })
 		.style("fill", "none")
 		.style("filter" , "url(#glow)");
 
