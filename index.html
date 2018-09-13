@@ -10,6 +10,7 @@
 
 		<!-- D3.js -->
 		<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+		<script src="surveyData.js"></script>
 		
 		<style>
 			body {
@@ -43,6 +44,10 @@
 				font-weight: "bold";
 			}
 
+			.plottitle {
+				font-size: 16pt;
+				fill: black;
+			}
 		</style>
 	
 	</head>
@@ -53,76 +58,31 @@
 		<script src="radarChart.js"></script>	
 		<script>
       
-      /* Radar chart design created by Ethan Wilansky for Arrowhead Labs */
+      /* Radar chart design created by Ethan Wilansky & Tomek Stojecki for Arrowhead Labs */
       
 			////////////////////////////////////////////////////////////// 
 			//////////////////////// Set-Up ////////////////////////////// 
 			////////////////////////////////////////////////////////////// 
 
-			var margin = {top: 100, right: 100, bottom: 100, left: 100},
+			var margin = {top: 120, right: 100, bottom: 100, left: 100},
 				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
 				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 					
 			////////////////////////////////////////////////////////////// 
 			////////////////////////// Data ////////////////////////////// 
 			////////////////////////////////////////////////////////////// 
+			
+			// var identities = [
+			// 	[
+			// 		{name: "John Doe"},
+			// 		{organization: "Org01"}
+			// 	],
+			// 	[
+			// 		{name: "Jane Doe"},
+			// 		{organization: "Org01"}
+			// 	]
+			// ];	
 
-			var data = [
-					  [
-					    {axis:"Hypothesize",value:1},
-						{axis:"Collaborate & Research",value:2},
-						{axis:"Architect",value:1},
-						{axis:"Synthesize",value:4},
-						{axis:"Develop",value:3},
-						{axis:"Build",value:4},
-						{axis:"Test End-To-End",value:1},
-						{axis:"Stage",value:1},
-						{axis:"Deploy",value:2},
-						{axis:"Verify",value:3},
-						{axis:"Monitor",value:4},
-						{axis:"Respond",value:3},
-						{axis:"Release",value:2},
-						{axis:"Stabilize",value:2},
-						{axis:"Measure",value:1},
-						{axis:"Learn",value:4}
-					  ],
-					  [
-					  	{axis:"Hypothesize",value:2},
-						{axis:"Collaborate & Research",value:3},
-						{axis:"Architect",value:5},
-						{axis:"Synthesize",value:3},
-						{axis:"Develop",value:5},
-						{axis:"Build",value:1},
-						{axis:"Test End-To-End",value:4},
-						{axis:"Stage",value:3},
-						{axis:"Deploy",value:2},
-						{axis:"Verify",value:2},
-						{axis:"Monitor",value:2},
-						{axis:"Respond",value:1},
-						{axis:"Release",value:2},
-						{axis:"Stabilize",value:2},
-						{axis:"Measure",value:1},
-						{axis:"Learn",value:5}	
-					  ], 
-					  [
-					  	{axis:"Hypothesize",value:5},
-						{axis:"Collaborate & Research",value:3},
-						{axis:"Architect",value:5},
-						{axis:"Synthesize",value:4},
-						{axis:"Develop",value:5},
-						{axis:"Build",value:1},
-						{axis:"Test End-To-End",value:4},
-						{axis:"Stage",value:3},
-						{axis:"Deploy",value:3},
-						{axis:"Verify",value:2},
-						{axis:"Monitor",value:2},
-						{axis:"Respond",value:1},
-						{axis:"Release",value: 4},
-						{axis:"Stabilize",value:2},
-						{axis:"Measure",value:3},
-						{axis:"Learn",value:3}	
-					  ]
-					];
 			////////////////////////////////////////////////////////////// 
 			//////////////////// Draw the Chart ////////////////////////// 
 			////////////////////////////////////////////////////////////// 
@@ -137,10 +97,59 @@
 			  maxValue: 5,
 			  levels: 6,
 			  roundStrokes: false,
-			  color: color
+			  color: color,
+			  opacityArea: 0,
+			  strokeWidth: 2,
+			  chartTitle: 'DevOps Health Radar',
+			  useFacade: true
 			};
-			//Call function to draw the Radar chart
-			RadarChart(".radarChart", data, radarChartOptions);
+
+			const surveyTitle = 'DevOps Health Radar Survey';
+			let schemaPages, surveyResponses;
+			useFacade = radarChartOptions.useFacade;
+			let data = [];
+
+			if (useFacade) {
+				const uri = 'http://localhost:3000/test/data';
+				loadFile(uri, 'schema.json')
+					.then(schema => {
+						schemaPages = schema;
+						return loadFile(uri,'responses.json')
+					})
+					.then(responses => {
+						surveyResponses = responses;
+					})
+					.then(() => {
+						for(let response of surveyResponses) {
+							data.push(returnScores(schemaPages, response));
+						}
+					})
+					.finally(() => {
+						RadarChart(".radarChart", data, radarChartOptions);
+					});
+			} else {
+				getSurveySchemaIdByTitle(surveyTitle)
+					.then(id => {
+						schemaId = id;
+						return getSurveySchemaPagesById(schemaId)
+					})
+					.then(schema => {
+						schemaPages = schema;
+						return getSurveyResponses(schemaId);
+					})
+					.then(responses => {
+						surveyResponses = responses;
+					})
+					.then(() => {
+						for(let response of surveyResponses) {
+							data.push(returnScores(schemaPages, response));
+						}
+					})
+					.finally(() => {
+						RadarChart(".radarChart", data, radarChartOptions);
+					})
+					.catch(error => console.error(error));
+    		}
 		</script>
 	</body>
 </html>

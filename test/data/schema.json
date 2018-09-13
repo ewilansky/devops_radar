@@ -1,0 +1,1426 @@
+[{
+    "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41410578",
+    "description": "",
+    "questions": [{
+        "sorting": null,
+        "family": "open_ended",
+        "subtype": "single",
+        "required": null,
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41410578/questions/141315797",
+        "headings": [{
+            "heading": "Please enter your name."
+        }],
+        "position": 1,
+        "validation": null,
+        "id": "141315797",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "open_ended",
+        "subtype": "single",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41410578/questions/141316441",
+        "headings": [{
+            "heading": "Please enter your email address."
+        }],
+        "position": 2,
+        "validation": {
+            "sum_text": "",
+            "min": null,
+            "text": "The comment you entered is in an invalid format.",
+            "sum": null,
+            "max": null,
+            "type": "email"
+        },
+        "id": "141316441",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "other": {
+                "id": "1005595699",
+                "visible": true,
+                "is_answer_choice": false,
+                "apply_all_rows": false,
+                "text": "Other (please specify)",
+                "position": 0,
+                "num_chars": 50,
+                "error_text": "",
+                "num_lines": 1
+            },
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Commercial",
+                "position": 1,
+                "id": "1004370492"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Customer & Reservations",
+                "position": 2,
+                "id": "1004370493"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Air Operations",
+                "position": 3,
+                "id": "1004370494"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Enterprise Management & Tech Operations",
+                "position": 4,
+                "id": "1004370495"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Data & Architecture",
+                "position": 5,
+                "id": "1004370496"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Infrastructure & Services",
+                "position": 6,
+                "id": "1004370498"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41410578/questions/140685734",
+        "headings": [{
+            "heading": "Select your organization."
+        }],
+        "position": 3,
+        "validation": null,
+        "id": "140685734",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "open_ended",
+        "subtype": "single",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41410578/questions/140685736",
+        "headings": [{
+            "heading": "What is your team's or ART's name?"
+        }],
+        "position": 4,
+        "validation": null,
+        "id": "140685736",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": null,
+        "answers": {
+            "other": {
+                "id": "1005633294",
+                "visible": true,
+                "is_answer_choice": false,
+                "apply_all_rows": false,
+                "text": "Other (please specify)",
+                "position": 0,
+                "num_chars": 50,
+                "error_text": "",
+                "num_lines": 1
+            },
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Agile/Development Team",
+                "position": 1,
+                "id": "1005633285"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Product Management",
+                "position": 2,
+                "id": "1005633287"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Business Owners",
+                "position": 3,
+                "id": "1005633288"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Solution Architecture/Engineering",
+                "position": 4,
+                "id": "1005633289"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Lean Portfolio Management",
+                "position": 5,
+                "id": "1005633290"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "System Team",
+                "position": 6,
+                "id": "1005633291"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Services Team",
+                "position": 7,
+                "id": "1005633292"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Leadership",
+                "position": 8,
+                "id": "1005633293"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41410578/questions/140876255",
+        "headings": [{
+            "heading": "In what type of team are you a part?"
+        }],
+        "position": 5,
+        "validation": null,
+        "id": "140876255",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "menu",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Individually",
+                "position": 1,
+                "id": "1005438508"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Collaborating with my team",
+                "position": 2,
+                "id": "1005438509"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41410578/questions/140846477",
+        "headings": [{
+            "heading": "Are you completing this survey individually or collaborating with your team?"
+        }],
+        "position": 6,
+        "validation": null,
+        "id": "140846477",
+        "forced_ranking": false
+    }],
+    "title": "<strong>General Information</strong>",
+    "position": 1,
+    "id": "41410578",
+    "question_count": 6
+}, {
+    "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41974447",
+    "description": "<div>Questions associated with survey respondents taking the survey on behalf of their team.</div>",
+    "questions": [{
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": null,
+        "answers": {
+            "other": {
+                "id": "1005617020",
+                "visible": true,
+                "is_answer_choice": true,
+                "apply_all_rows": false,
+                "text": "Other (please specify)",
+                "position": 0,
+                "num_chars": 50,
+                "error_text": "Please enter a comment.",
+                "num_lines": 1
+            },
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Scrum Master",
+                "position": 1,
+                "id": "1005442207"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Product Owner",
+                "position": 2,
+                "id": "1005442208"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "System Architect/Engineer",
+                "position": 3,
+                "id": "1005442210"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Developer",
+                "position": 4,
+                "id": "1005616989"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Quality Assurance Engineer",
+                "position": 5,
+                "id": "1005617013"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Release Train Engineer (RTE)",
+                "position": 6,
+                "id": "1005442211"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Customer",
+                "position": 7,
+                "id": "1005617014"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Solution Manager",
+                "position": 8,
+                "id": "1005617015"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Solution Train Engineer",
+                "position": 9,
+                "id": "1005617016"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Supplier",
+                "position": 10,
+                "id": "1005617017"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Epic Owner",
+                "position": 11,
+                "id": "1005617018"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Enterprise Architect",
+                "position": 12,
+                "id": "1005617019"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41974447/questions/140846990",
+        "headings": [{
+            "heading": "What is your role in the team/ART?"
+        }],
+        "position": 1,
+        "validation": null,
+        "id": "140846990",
+        "forced_ranking": false
+    }],
+    "title": "<strong>Team Information</strong>",
+    "position": 2,
+    "id": "41974447",
+    "question_count": 1
+}, {
+    "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41974438",
+    "description": "<div>Questions based upon the SAFe DevOps Health Radar - Continuous Exploration Category: Hypothesize, Collaborate & Research, Architect and Synthesize</div>",
+    "questions": [{
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "other": {
+                "id": "1008836642",
+                "visible": false,
+                "is_answer_choice": true,
+                "apply_all_rows": false,
+                "text": "Hypothesize",
+                "position": 0,
+                "num_chars": 50,
+                "error_text": "Please enter a comment.",
+                "num_lines": 1
+            },
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Ideas are vague or not defined.",
+                "position": 1,
+                "id": "995696047"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Ideas are defined (e.g., as epics) but do not include hypothesis statements.",
+                "position": 2,
+                "id": "995696048"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Some ideas are expressed as hypothesis statements with measurable outcomes.",
+                "position": 3,
+                "id": "995696049"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Most ideas are expressed as hypothesis statements with measurable outcomes and include an MVPs.",
+                "position": 4,
+                "id": "995696050"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "All ideas are expressed as hypothesis statements with measurable outcomes and include an MVPs.",
+                "position": 5,
+                "id": "995696051"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41974438/questions/139316321",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to translate business ideas into clear and measurable epic hypothesis statements. (Hypothesize)"
+        }],
+        "position": 1,
+        "validation": null,
+        "id": "139316321",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Product Management roles and responsibilities are not defined or followed.",
+                "position": 1,
+                "id": "995696054"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Product Management creates requirements in large batches with little customer or development collaboration.",
+                "position": 2,
+                "id": "995696055"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Product Management collaborates with business or development experts, but not both, when defining requirements.",
+                "position": 3,
+                "id": "995696056"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Product Management regularly collaborates with business, development, and operation experts but does not define Minimum Marketable Features.",
+                "position": 4,
+                "id": "995696057"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Product Management always collaborates with business, development, and operation experts and defines Minimum Marketable Features.",
+                "position": 5,
+                "id": "995696058"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41974438/questions/139316323",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to collaborate with customer and technology experts to define Minimum Marketable Features (MMF) in support of the hypothesis. (Collaborate & Research)"
+        }],
+        "position": 2,
+        "validation": null,
+        "id": "139316323",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Architecture is monolithic and fragile; it is difficult to change and involves managing complex dependencies across many components and systems. ",
+                "position": 1,
+                "id": "995696059"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Architecture is predominantly monolithic but some applications/systems are loosely coupled.",
+                "position": 2,
+                "id": "995696060"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Architecture is most decoupled but doesn't allow Release on Demand.",
+                "position": 3,
+                "id": "995696061"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Architecture is aligned around value delivery with few dependencies across components and systems. ",
+                "position": 4,
+                "id": "995696062"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Architecture is built for Release on Demand and operability.",
+                "position": 5,
+                "id": "995696063"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41974438/questions/139316324",
+        "headings": [{
+            "heading": "Rate your team's/ART's effectiveness at architecting for continuous delivery. (Architect)"
+        }],
+        "position": 3,
+        "validation": null,
+        "id": "139316324",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "The program backlog does not exist or is not shared. ",
+                "position": 1,
+                "id": "995696064"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "The program backlog exists, but the features are incomplete and prioritization is an afterthought. ",
+                "position": 2,
+                "id": "995696065"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "The program backlog contains fully defined features, but are not prioritized using WSJF.",
+                "position": 3,
+                "id": "995696066"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features in the program backlog are complete, prioritized using WSJF and matched to the delivery capacity of the ART.",
+                "position": 4,
+                "id": "995696067"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "The program backlog is a collection of minimum marketable features created using BDD and prioritized using WSJF.",
+                "position": 5,
+                "id": "995696068"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41974438/questions/139316325",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to synthesize the results of continuous exploration activities into a well-crafted, prioritized, actionable feature backlog. (Synthesize)"
+        }],
+        "position": 4,
+        "validation": null,
+        "id": "139316325",
+        "forced_ranking": false
+    }],
+    "title": "<strong>Continuous Exploration</strong>",
+    "position": 3,
+    "id": "41974438",
+    "question_count": 4
+}, {
+    "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975309",
+    "description": "<div>Questions based upon the SAFe DevOps Health Radar Continuous Integration Category: Develop, Build, Test End-To-End and Stage</div>",
+    "questions": [{
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "The team backlog does not exist or is not used to manage daily work.",
+                "position": 1,
+                "id": "995696075"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Stories are either incomplete or too verbose; unit tests are generally not written; peer reviews are not conducted.",
+                "position": 2,
+                "id": "995696076"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Stories are complete; most changes have unit tests; peer reviews are usually conducted.",
+                "position": 3,
+                "id": "995696077"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Code is checked in daily; unit test coverage is 80%+; peer reviews are always conducted.",
+                "position": 4,
+                "id": "995696078"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Code is checked in multiple times per day; tests are written before code (BDD and TDD); pair work and other Built-in quality practices are the norm.",
+                "position": 5,
+                "id": "995696079"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975309/questions/139316327",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to quickly and reliably define and implement stories. (Develop)"
+        }],
+        "position": 1,
+        "validation": null,
+        "id": "139316327",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Builds are run fewer than once per iteration and/or are completely manual.",
+                "position": 1,
+                "id": "995696116"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Builds are run once per iteration and are partially automated; dev branches are open for a month or more; builds break often.",
+                "position": 2,
+                "id": "995696117"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Automated builds run once a day; broken builds are corrected in 2-4 hours; manual unit tests are run against each build; dev branches are open for 2-4 weeks.",
+                "position": 3,
+                "id": "995696118"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Builds run automatically upon code commit; broken builds are corrected within 1 hour; automated unit tests are run against each build; dev branches are merged to trunk every iteration. ",
+                "position": 4,
+                "id": "995696119"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Builds run on every commit; builds include static code analysis and security testing; automated gated commits prevent defects from entering the version control; dev branches are merged to trunk on every commit.",
+                "position": 5,
+                "id": "995696120"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975309/questions/139316331",
+        "headings": [{
+            "heading": "Rate your team's/ART's effectiveness at building and integrating continuously."
+        }],
+        "position": 2,
+        "validation": null,
+        "id": "139316331",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Testing is performed manually in environments that do not mimic production; testing occurs in large batches during a scheduled 'testing' phase",
+                "position": 1,
+                "id": "995696121"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Testing is performed manually in environments that do not mimic production; stories are implemented and tested manually within a single PI",
+                "position": 2,
+                "id": "995696122"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Half of the testing is automated and performed in a production-like environment every PI",
+                "position": 3,
+                "id": "995696123"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "The majority of tests are automated and run in production-like environments; stories are implemented and fully tested every iteration",
+                "position": 4,
+                "id": "995696124"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Successful builds trigger automatic deployment to production-like test environments; all tests are automated; tests run in parallel, and changes are fully validated after every commit",
+                "position": 5,
+                "id": "995696125"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975309/questions/139316332",
+        "headings": [{
+            "heading": "Rate your team's/ART's effectiveness at continuously testing, end-to-end, in a production-like environment."
+        }],
+        "position": 3,
+        "validation": null,
+        "id": "139316332",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "No staging environment exists or we use a test environment for staging.",
+                "position": 1,
+                "id": "995696128"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are deployed manually to a staging environment once every PI.",
+                "position": 2,
+                "id": "995696130"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are deployed to a staging environment once per month and demonstrated to Product Management.",
+                "position": 3,
+                "id": "995696132"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features and infrastructure are auto-deployed to a staging environment every iteration and accepted by Product Management.",
+                "position": 4,
+                "id": "995696133"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Stories, changes and infrastructure are auto-deployed to a staging environment, and deployment is validated.",
+                "position": 5,
+                "id": "995696134"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975309/questions/139316334",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to deploy features in a staging environment. This is a production-like (non-test) environment for final validation prior to production deployment."
+        }],
+        "position": 4,
+        "validation": null,
+        "id": "139316334",
+        "forced_ranking": false
+    }],
+    "title": "<strong>Continuous Integration</strong>",
+    "position": 4,
+    "id": "41975309",
+    "question_count": 4
+}, {
+    "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975305",
+    "description": "<div>Questions based upon the SAFe DevOps Health Radar Continuous Deployment Category: Deploy, Verify, Monitor and Respond</div>",
+    "questions": [{
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are deployed to production every 3+ months; deployments are manual and painful; 'deployed' means 'released'.",
+                "position": 1,
+                "id": "995696138"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are deployed to production at PI boundaries; deployments are mostly manual; 'deployed' means 'released'.",
+                "position": 2,
+                "id": "995696139"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are deployed to production every iteration; deployments are mostly automated; some features can be deployed without being released.",
+                "position": 3,
+                "id": "995696140"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are deployed to production every iteration and fully automated through the continuous delivery pipeline; dark releases are common.",
+                "position": 4,
+                "id": "995696141"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are deployed continuously throughout each iteration; Dev teams initiate deployments directly via continuous delivery pipeline tools; release is completely decoupled from deployment; dark releases are the norm.",
+                "position": 5,
+                "id": "995696142"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975305/questions/139316336",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to continuously deploy features to production as well as the ability to control their visibility using feature toggles and/or other means."
+        }],
+        "position": 1,
+        "validation": null,
+        "id": "139316336",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Deployments are not verified in production before being released to end users.",
+                "position": 1,
+                "id": "995696143"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Deployments are verified with manual smoke tests and/or UAT; we address deployment issues within a stated grace/warranty period; recovery is painful or impossible; we often correct issues directly in production.",
+                "position": 2,
+                "id": "995696144"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Deployments are verified with manual tests prior to releasing to end users; recovey is painful; we do not make changes directly in production.",
+                "position": 3,
+                "id": "995696145"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Deployments are verified using automated production tests, synthetic transactions and security tests prior to release; we can easily roll back or fix forward to recover from failed deployments.",
+                "position": 4,
+                "id": "995696146"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Automated production tests run on an ongoing basis and feed monitoring systems; failed deployments can be rolled back instantly or fixed forward through the entire continuous delivery pipeline.",
+                "position": 5,
+                "id": "995696147"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975305/questions/139316337",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to accurately determine deployment success or failure."
+        }],
+        "position": 2,
+        "validation": null,
+        "id": "139316337",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "No feature level production monitoring exists; only infrastructure monitoring is in place.",
+                "position": 1,
+                "id": "995696252"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features only log faults and exceptions; analyzing events involves manually correlating logs from multiple systems.",
+                "position": 2,
+                "id": "995696253"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features log faults, user activity and other events; data is analyzed manually to investigate incidents and measure business value of features.",
+                "position": 3,
+                "id": "995696254"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Full-stack monitoring is in place; events is automtically correlated throughout the architecture; data is presented through system-specific dashboards.",
+                "position": 4,
+                "id": "995696255"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Federated monitoring platform provides one-stop access to full-stack insights; data is used to gauge system performance.",
+                "position": 5,
+                "id": "995696256"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975305/questions/139316353",
+        "headings": [{
+            "heading": "Rate your team's/ART's effectiveness at monitoring the full solution stack (front-end, middle tier, back-end, infrastructure, etc.)."
+        }],
+        "position": 3,
+        "validation": null,
+        "id": "139316353",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Customers find issues before we do; resolving high priority issues is time consuming and reactive; customers have low confidence in our ability to recover from production issues.",
+                "position": 1,
+                "id": "995696257"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Operations owns production issues; development involvement requires significant escalation; teams blame each other in times of crisis.",
+                "position": 2,
+                "id": "995696258"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Development and operations collectively own the incident resolution process; recovering from major incidents is reactive, but a team effort.",
+                "position": 3,
+                "id": "995696259"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Our monitoring systems detect most issues before our customers do; development and operations work proactively to recover from major incidents.",
+                "position": 4,
+                "id": "995696260"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Our monitoring systems alert us to potential problems based on carefully-designed tolerance thresholds; Developers are responsible for supporting their own code and proactively issue fixes through the continuous delivery pipeline before users are affected.",
+                "position": 5,
+                "id": "995696261"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975305/questions/139316354",
+        "headings": [{
+            "heading": "Rate your team's/ART's effectiveness at proactively detecting production issues, and quickly resolving them."
+        }],
+        "position": 4,
+        "validation": null,
+        "id": "139316354",
+        "forced_ranking": false
+    }],
+    "title": "<strong>Continuous Deployment</strong>",
+    "position": 5,
+    "id": "41975305",
+    "question_count": 4
+}, {
+    "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975802",
+    "description": "<div>Questions based upon the SAFe DevOps Health Radar Release on Demand Category: Release, Stabilize, Measure and Learn</div>",
+    "questions": [{
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Releases are coupled to deployments and customers are extremely dissatisfied with the frequency of releases.",
+                "position": 1,
+                "id": "995696262"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Releases are coupled to deployments, but customers are somewhat dissatisfied with the frequency of releases.",
+                "position": 2,
+                "id": "995696263"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Release and deployment are coupled, but both occur continuously or on demand.",
+                "position": 3,
+                "id": "995696264"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Release is decoupled from deployment; deployed features are released based on business demnad.",
+                "position": 4,
+                "id": "995696265"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Deployed features can be released to a subset of the user population; code is refactored to remove featue toggles when no longer used.",
+                "position": 5,
+                "id": "995696266"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975802/questions/139316355",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to release features to users on demand."
+        }],
+        "position": 1,
+        "validation": null,
+        "id": "139316355",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We experience frequent unplanned outages and/or security breaches with long recovery times.",
+                "position": 1,
+                "id": "995696267"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We experience occasional unplanned outages, but recover within our service level agreements.",
+                "position": 2,
+                "id": "995696268"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We have very few unplanned outages; availability, security, and disaster recovery measures are effective, and are better then our service level agreements.",
+                "position": 3,
+                "id": "995696269"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We have no unplanned outages; We plan and rehearse failure and recovery.",
+                "position": 4,
+                "id": "995696270"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We maximize resiliency by deliberately injecting faults into our production environment and rehearsing recovery procedures.",
+                "position": 5,
+                "id": "995696271"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975802/questions/139316356",
+        "headings": [{
+            "heading": "Rate your team's/ART's effectiveness at maintaining stable solutions that avoid unplanned down time and security breaches."
+        }],
+        "position": 2,
+        "validation": null,
+        "id": "139316356",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We don’t define or measure the value of features.",
+                "position": 1,
+                "id": "995696272"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We’ve defined what ‘value’ is but don’t know how to measure it.",
+                "position": 2,
+                "id": "995696273"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We capture qualitative feedback from the business about the value of our features. ",
+                "position": 3,
+                "id": "995696274"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We capture qualitative and quantitative feedback from the business and our monitoring systems about the value of our features.",
+                "position": 4,
+                "id": "995696275"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "We aggregate the quantitative and qualitative feedback to objectively validate the original hypothesis.",
+                "position": 5,
+                "id": "995696276"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975802/questions/139316357",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to collect objective data about the actual value realized by deployed features."
+        }],
+        "position": 3,
+        "validation": null,
+        "id": "139316357",
+        "forced_ranking": false
+    }, {
+        "sorting": null,
+        "family": "single_choice",
+        "subtype": "vertical",
+        "required": {
+            "text": "This question requires an answer.",
+            "amount": "0",
+            "type": "all"
+        },
+        "answers": {
+            "choices": [{
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are never evaluated post-release.",
+                "position": 1,
+                "id": "995696277"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Features are sometimes evaluated using subjective information.",
+                "position": 2,
+                "id": "995696278"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Hypotheses are evaluated using objective measures, but actions are heavily influenced by corporate politics.",
+                "position": 3,
+                "id": "995696279"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Hypotheses are objectively evaluated; pivot or persevere decisions are made without mercy or guilt.",
+                "position": 4,
+                "id": "995696280"
+            }, {
+                "quiz_options": {
+                    "score": 0
+                },
+                "visible": true,
+                "text": "Continuous learning and experimentation are ingrained in the culture of the organization.\"",
+                "position": 5,
+                "id": "995696281"
+            }]
+        },
+        "visible": true,
+        "href": "https://api.surveymonkey.net/v3/surveys/157580396/pages/41975802/questions/139316358",
+        "headings": [{
+            "heading": "Rate your team's/ART's ability to make 'pivot-or-persevere' decisions based on empirical performance data, and commitment to actively applying those insights to continuously improve the delivery pipeline."
+        }],
+        "position": 4,
+        "validation": null,
+        "id": "139316358",
+        "forced_ranking": false
+    }],
+    "title": "<strong>Release on Demand</strong>",
+    "position": 6,
+    "id": "41975802",
+    "question_count": 4
+}]

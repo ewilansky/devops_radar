@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>javascript fetch test</title>
+
+		<!-- D3.js -->
+		<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<script src="surveyData.js"></script>	
+		<script>
+			const surveyTitle = 'DevOps Health Radar Survey';
+			const useFacade = true;
+			let schemaPages, surveyResponses;
+			let data;
+
+			if (useFacade) {
+				const uri = 'http://localhost:3000/test/data';
+				loadFile(uri, 'schema.json')
+					.then(schema => {
+						schemaPages = schema;
+						return loadFile(uri,'responses.json')
+					})
+					.then(responses => {
+						surveyResponses = responses
+					})
+					.finally(() => {
+						data = returnScores(schemaPages, surveyResponses);
+					});		
+			} else {
+				let schemaId
+				getSurveySchemaIdByTitle(surveyTitle)
+					.then(id => {
+						schemaId = id;
+						return getSurveySchemaPagesById(schemaId)
+					})
+					.then(schema => {
+						schemaPages = schema;
+						return getSurveyResponses(schemaId)
+					})
+					.then(responses => {
+						surveyResponses = responses;
+					})
+					.finally(() => {
+						let scores = returnScores(schemaPages, surveyResponses);
+					})
+					.catch(error => console.error(error));
+			}
+     	</script>
+	</body>
+</html>

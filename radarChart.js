@@ -23,6 +23,8 @@ function RadarChart(id, data, options) {
 		strokeWidth: 1, 		//The width of the stroke around each blob
 		roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
 		color: d3.scaleOrdinal(d3.schemeCategory10), // Color function for D3js v4+
+		chartTitle: 'A chart title',
+		facadeData: true		// if this is true, then RESTful calls will not be made to extract data for the chart
 		// some other default color schemes to consider
 		// color: d3.scaleOrdinal(d3.schemePaired)
 		// color: d3.scaleOrdinal(["#5eb659","#c75a8c","#b3b343","#6585cc","#d24b3d","#4db5a4","#b76a52","#667d38","#cf8f41","#a361c7"])
@@ -61,9 +63,19 @@ function RadarChart(id, data, options) {
 		.attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
 		.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
 		.attr("class", "radar" + id);
+
+
 	//Append a g element		
 	var g = svg.append("g")
 		.attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
+
+	//Add a title
+	g.append("text")
+		.attr("x", 0)            
+		.attr("y", - 350)
+		.attr("class", "plottitle")
+		.attr("text-anchor", "middle")  
+		.text(cfg.chartTitle);
 
 	/////////////////////////////////////////////////////////
 	////////// Glow filter for some extra pizzazz ///////////
@@ -305,7 +317,9 @@ function RadarChart(id, data, options) {
 		.on('mouseover', function (d,i){
 			//Dim all blobs
 			d3.selectAll(".radarArea, .circleGroup")
-				.style("fill-opacity", 0.1); 
+				.style("fill-opacity", 0);
+			d3.selectAll(".radarStroke")
+				.style("stroke-width", 0 + "px");
 			d3.select("#circleGroup" + i)
 			 	.call(focusBlob, 0.3);
 			d3.select(this)
@@ -316,6 +330,8 @@ function RadarChart(id, data, options) {
 			d3.selectAll(".radarArea, .circleGroup")
 				.transition().duration(200)
 				.style("fill-opacity", cfg.opacityArea);
+			d3.selectAll(".radarStroke")
+				.style("stroke-width", cfg.strokeWidth + "px");
 		});
 
 	//Create the outlines	
