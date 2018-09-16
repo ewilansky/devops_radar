@@ -1,0 +1,75 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    fill: #242424;
+    text-align: center;
+    cursor: default;
+}
+
+.legend {
+    font-family: 'Raleway', sans-serif;
+    fill: #333333;
+}
+
+.tooltip {
+    fill: #333333;
+    font-size: 14pt;
+    font-weight: "bold";
+}
+
+.outerLabelText {
+    stroke: #fff;
+    font-size: 20px;
+}
+
+.arcthing {
+    fill: green;
+    background-color: green;
+    font-weight: "bold";
+}
+
+.plottitle {
+    font-size: 16pt;
+    fill: black;
+}
+
+/* control multiple svg layout */
+svg {
+    /* border: solid 1px black; */
+    display: block;
+    margin-left: 10px;
+}
+
+/* radar plot */
+svg:nth-child(1) {
+    /* border: solid 1px blue; */
+    float:left;
+}
+
+/* entity legend */
+svg:nth-child(2) {
+    /* border: solid 1px red; */
+    float:left;
+}
+
+/* org legend */
+svg:nth-child(3) {
+    /* border: solid 1px green; */
+    float:left;
+}
+
+div {
+    /* width: 1400px; */
+    overflow: auto;
+} 
+
+/* legend styling */
+.legendTitle {
+    padding-bottom: 20px;
+    font-size: 14pt;
+}
+
+.label {
+    font-size: 10pt;
+}
