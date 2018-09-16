@@ -24,7 +24,41 @@ function getSurveyResponses(schema_id) {
         .then(response => response.data);
 }
 
-function returnScores(schemaPages, response) {
+function constructIdentities(schemaPages, response) {
+    let identity = {
+        name: "survey user name",
+        email: "survey user email address",
+        organization: "associated organization",
+        teamName: "survey user's team name",
+        teamType: "type of survey user's team",
+        representingTeam: "true",
+        roleInTeam: "your role in your team"
+    };
+
+    const generalInfoSchema = getSection("General");
+    const teamInfoSchema = getSection("Team");
+    const generalAnswers = findAnswers(response, generalInfoSchema.id);
+    const teamAnswers = findAnswers(response, teamInfoSchema.id);
+
+    generalInfoSchema.questions.find((answerKey, i) => {
+        if ([0,1,3].includes(i)) {
+            identity[Object.keys(identity)[i]] = generalAnswers.questions[i].answers[0].text;
+        } else {
+            identity[Object.keys(identity)[i]] = getAnswer(answerKey, generalAnswers, i).text;
+        }
+    });
+
+    if (identity.representingTeam.toLowerCase() !== 'individually') {
+        teamInfoSchema.questions.find((answerKey, i) => {
+            let answer = getAnswer(answerKey, teamAnswers, i);
+            identity.roleInTeam =  answer.text;
+        });
+    }
+
+    return identity;
+}
+
+function constructScores(schemaPages, response) {
     let scores = [
         {axis:"Hypothesize",value:0},
         {axis:"Collaborate & Research",value:0},
@@ -45,46 +79,55 @@ function returnScores(schemaPages, response) {
     ];
 
     // will return data array with scores for each question. 
-    const explorationSchema = schemaPages.find(p => p.title.includes('Exploration'));
-    const integrationSchema = schemaPages.find(p => p.title.includes('Integration'));
-    const deploymentSchema = schemaPages.find(p => p.title.includes('Deployment'));
-    const demandSchema = schemaPages.find(p => p.title.includes('Demand'));
-    const explorationAnswers = response.pages.find(x => x.id == explorationSchema.id);
-    const integrationAnswers = response.pages.find(x => x.id === integrationSchema.id);
-    const deploymentAnswers = response.pages.find(x => x.id === deploymentSchema.id);
-    const demandAnswers = response.pages.find(x => x.id === demandSchema.id);
+    const explorationSchema = getSection('Exploration');
+    const integrationSchema = getSection('Integration');
+    const deploymentSchema = getSection('Deployment');
+    const demandSchema = getSection('Demand');
+    const explorationAnswers = findAnswers(response, explorationSchema.id);
+    const integrationAnswers = findAnswers(response, integrationSchema.id);
+    const deploymentAnswers = findAnswers(response, deploymentSchema.id);
+    const demandAnswers = findAnswers(response, demandSchema.id);
     let question_count = 0;
+    let answer;
 
     explorationSchema.questions.forEach((answerKey, questionIdx) => {
-        scoreAnswers(question_count, answerKey, explorationAnswers, questionIdx);
+        answer = getAnswer(answerKey, explorationAnswers, questionIdx);
+        scores[question_count].value = answer.position;
         question_count++;
     });
 
     integrationSchema.questions.forEach((answerKey, questionIdx) => {
-        scoreAnswers(question_count, answerKey, integrationAnswers, questionIdx);
+        answer = getAnswer(answerKey, integrationAnswers, questionIdx);
+        scores[question_count].value = answer.position;
         question_count++;
     });
 
     deploymentSchema.questions.forEach((answerKey, questionIdx) => {
-        scoreAnswers(question_count, answerKey, deploymentAnswers, questionIdx);
+        answer = getAnswer(answerKey, deploymentAnswers, questionIdx);
+        scores[question_count].value = answer.position;
         question_count++;
     });
 
     demandSchema.questions.forEach((answerKey, questionIdx) => {
-        scoreAnswers(question_count, answerKey, demandAnswers, questionIdx);
+        answer = getAnswer(answerKey, demandAnswers, questionIdx);
+        scores[question_count].value = answer.position;
         question_count++;
     });
-
-
-    function scoreAnswers(question_count, answerKey, answers, questionIdx) {
-        scores[question_count].value = (answerKey.answers.choices.find((choice) =>
-            choice.id === answers.questions[questionIdx].answers[0].choice_id).position);
-    }
     
-    return scores;
-    
-    // Also, need to add general identity information to json object array
-    // (name, email, organization, team name, team type, individual/team collab, team role if team collab) to each record
+    return scores;   
+ }
+
+ function getAnswer(answerKey, answers, questionIdx) {
+    return (answerKey.answers.choices.find((choice) =>
+        choice.id === answers.questions[questionIdx].answers[0].choice_id));
+ }
+
+function getSection(titleNamePartial) {
+    return schemaPages.find(p => p.title.includes(titleNamePartial));
+}
+
+function findAnswers(response, schemaSectionId) {
+    return response.pages.find(x => x.id == schemaSectionId);
 }
 
 function get(url) {
@@ -123,7 +166,7 @@ function getSurveyData(useFacade = true, schemaId = 0) {
                 surveyResponses = responses;
             })
             .finally(() => {
-                return returnScores(schemaPages, surveyResponses);
+                return constructScores(schemaPages, surveyResponses);
             });		
     } else {
         getSurveySchemaIdByTitle(surveyTitle)
@@ -139,7 +182,7 @@ function getSurveyData(useFacade = true, schemaId = 0) {
                 surveyResponses = responses;
             })
             .finally(() => {
-                return returnScores(schemaPages, surveyResponses);
+                return constructScores(schemaPages, surveyResponses);
             })
             .catch(error => console.error(error));
     }

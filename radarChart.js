@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////
 
 function RadarChart(id, data, options) {
-	var cfg = {
+	const cfg = {
 		w: 600,				//Width of the circle
 		h: 600,				//Height of the circle
 		margin: { top: 20, right: 20, bottom: 20, left: 20 }, //The margins of the SVG
@@ -38,18 +38,29 @@ function RadarChart(id, data, options) {
 	}//if
 
 	//If the supplied maxValue is smaller than the actual one, replace by the max in the data
-	var maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })); }));
+	const maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })); }));
 
-	var allAxis = (data[0].map(function (i, j) { return i.axis; })),	//Names of each axis
+	const allAxis = (data[0].map(function (i, j) { return i.axis; })),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w / 2, cfg.h / 2), 	//Radius of the outermost circle
 		Format = d3.format("~s"),			 	//String formatting w/trim insignificant trailing zerosg
 		angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 
 	//Scale for the radius
-	var rScale = d3.scaleLinear()
+	const rScale = d3.scaleLinear()
 		.range([0, radius])
 		.domain([0, maxValue]);
+
+	// legend data
+	let entities = [];
+	for (let o of identity){
+		entities.push(o.name + ' (TEAM: ' + o.teamName + ')');
+	}
+
+	let orgs = [];
+	for (let o of identity){
+		orgs.push(o.organization);
+	}
 
 	/////////////////////////////////////////////////////////
 	//////////// Create the container SVG and g /////////////
@@ -58,24 +69,91 @@ function RadarChart(id, data, options) {
 	//Remove whatever chart with the same id/class was present before
 	d3.select(id).select("svg").remove();
 
+	// build and render the left legend
+	d3.select("div").append("svg")
+		.attr('width',200)
+		.attr('height',600)
+		.attr('class', 'svgleft');
+
+	let orgsOrdinal = d3.scaleOrdinal()
+		.domain(orgs)
+		.range(d3.schemeCategory10);
+
+	let leftLegend = d3.select(".svgleft");
+
+	leftLegend.append("g")
+			.attr("class", "legendLeftOrdinal")
+			.attr("transform", "translate(10,50)")
+			.attr("width", 50);
+
+	let legendOrgOrdinal = d3.legendColor()
+		.title('Organization')
+		.shape("path", d3.symbol()
+			.type(d3.symbolCircle)
+				.size(100)())
+		.orient('vertical')
+		.shapePadding(10)
+		.scale(orgsOrdinal)
+		.on("cellclick", function(d){console.log("clicked " + d);});  // todo - adjust for filtering the plot
+	
+	leftLegend.select(".legendLeftOrdinal")
+			.call(legendOrgOrdinal);
+	
 	//Initiate the radar chart SVG
 	var svg = d3.select(id).append("svg")
 		.attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
 		.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
 		.attr("class", "radar" + id);
 
-
 	//Append a g element		
 	var g = svg.append("g")
 		.attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
 
+	////////////////////////////////////////////////////
+	// Elements around the radar plot. Added by Ethan //
+	////////////////////////////////////////////////////
 	//Add a title
-	g.append("text")
-		.attr("x", 0)            
-		.attr("y", - 350)
+	svg.append("g")
 		.attr("class", "plottitle")
-		.attr("text-anchor", "middle")  
+		.attr("transform", "translate(" + (cfg.margin.left + cfg.w + 100) / 2 + ", 10)")
+		.attr("text-anchor", "middle");
+	
+	svg.select(".plottitle")
+		.append("text")
+		.attr("y", 10)
 		.text(cfg.chartTitle);
+
+	///////////////////////////////////////////////////////////
+	// legend and svg container on the right. Added by Ethan //
+	///////////////////////////////////////////////////////////
+	d3.select("div").append("svg")
+		.attr('width',300)
+		.attr('height',600)
+		.attr('class', 'svgright');
+
+	let entitiesOrdinal = d3.scaleOrdinal()
+		  .domain(entities)
+		  .range(d3.schemeCategory10);
+  
+	let rightLegend = d3.select(".svgright");
+	
+	rightLegend.append("g")
+		.attr("class", "legendRightOrdinal")
+		.attr("transform", "translate(10,50)")
+		.attr("width", 50);
+
+	let legendEntityOrdinal = d3.legendColor()
+		.title('Survey Respondent')
+		.shape("path", d3.symbol()
+			.type(d3.symbolTriangle)
+				.size(100)())
+		.orient('vertical')
+		.shapePadding(10)
+		.scale(entitiesOrdinal)
+		.on("cellclick", function(d){console.log("clicked " + d);});  // todo - adjust for filtering the plot
+
+	rightLegend.select(".legendRightOrdinal")
+		.call(legendEntityOrdinal);
 
 	/////////////////////////////////////////////////////////
 	////////// Glow filter for some extra pizzazz ///////////

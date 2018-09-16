@@ -26,7 +26,7 @@
 						surveyResponses = responses
 					})
 					.finally(() => {
-						data = returnScores(schemaPages, surveyResponses);
+						data = constructScores(schemaPages, surveyResponses);
 					});		
 			} else {
 				let schemaId
@@ -43,7 +43,7 @@
 						surveyResponses = responses;
 					})
 					.finally(() => {
-						let scores = returnScores(schemaPages, surveyResponses);
+						let scores = constructScores(schemaPages, surveyResponses);
 					})
 					.catch(error => console.error(error));
 			}
