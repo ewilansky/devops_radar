@@ -2,7 +2,6 @@
 const HOST = 'https://api.surveymonkey.net/v3';
 const TOKEN = 'gGjGCiPUvNABVM9Wt5MT1AfGjd3oHhxTfnmeJF0dfoO-nhx0qTt9ghByZOdFNjpz8S0ld5xsqH85RIuEBKFdc-emcrNjStDT3Rqqf4oSDVB0KN4fg-ClwAM-8RGveVrG';
 
-
 function getSurveySchemaIdByTitle(title) {
     const apiCall = '/surveys?title=' + title;
     return get(HOST + apiCall)
@@ -51,7 +50,7 @@ function constructIdentities(schemaPages, response) {
     if (identity.representingTeam.toLowerCase() !== 'individually') {
         teamInfoSchema.questions.find((answerKey, i) => {
             let answer = getAnswer(answerKey, teamAnswers, i);
-            identity.roleInTeam =  answer.text;
+            identity.roleInTeam = answer != null ?  answer.text : "No role given";
         });
     }
 
@@ -92,25 +91,25 @@ function constructScores(schemaPages, response) {
 
     explorationSchema.questions.forEach((answerKey, questionIdx) => {
         answer = getAnswer(answerKey, explorationAnswers, questionIdx);
-        scores[question_count].value = answer.position;
+        scores[question_count].value = answer != null ? answer.position : 0;
         question_count++;
     });
 
     integrationSchema.questions.forEach((answerKey, questionIdx) => {
         answer = getAnswer(answerKey, integrationAnswers, questionIdx);
-        scores[question_count].value = answer.position;
+        scores[question_count].value = answer != null ? answer.position : 0;
         question_count++;
     });
 
     deploymentSchema.questions.forEach((answerKey, questionIdx) => {
         answer = getAnswer(answerKey, deploymentAnswers, questionIdx);
-        scores[question_count].value = answer.position;
+        scores[question_count].value = answer != null ? answer.position : 0;
         question_count++;
     });
 
     demandSchema.questions.forEach((answerKey, questionIdx) => {
         answer = getAnswer(answerKey, demandAnswers, questionIdx);
-        scores[question_count].value = answer.position;
+        scores[question_count].value = answer != null ? answer.position : 0;
         question_count++;
     });
     
@@ -118,8 +117,12 @@ function constructScores(schemaPages, response) {
  }
 
  function getAnswer(answerKey, answers, questionIdx) {
-    return (answerKey.answers.choices.find((choice) =>
-        choice.id === answers.questions[questionIdx].answers[0].choice_id));
+    if (answers.questions.length > 0) {
+        return (answerKey.answers.choices.find((choice) =>
+            choice.id === answers.questions[questionIdx].answers[0].choice_id));
+    } else {
+        return null;
+    }
  }
 
 function getSection(titleNamePartial) {
